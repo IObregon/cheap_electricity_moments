@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'pvpc.dart';
 import 'PVPC_utils.dart';
+import 'row_pvpc.dart';
 
 class ListPVPCs extends StatefulWidget {
   final Future<List<PVPC>> futurePVPCs;
@@ -31,27 +32,31 @@ class _ListPVPCsState extends State<ListPVPCs> {
           }
           var selectedHours =
               calculateSelectedHours(snapshot.data, widget.hoursNumber);
-          return GridView.builder(
-              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: 200,
-                  childAspectRatio: 8 / 1,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10),
-              shrinkWrap: true,
-              itemCount: snapshot.data?.length,
-              itemBuilder: (BuildContext context, int index) {
-                var data = snapshot.data![index];
-                return Container(
-                  height: 10,
-                  color: selectedHours.contains(index)
-                      ? Colors.green
-                      : Colors.white,
-                  child: Center(
-                    child: Text(
-                        "${data.hour} => ${data.PCB.toStringAsFixed(5)} €/kWh"),
-                  ),
-                );
+          var firstList = ListView.builder(
+              itemCount: (snapshot.data!.length / 2).ceil(),
+              itemBuilder: (context, index) {
+                return RowPVPC(
+                    isSelected: selectedHours.contains(index),
+                    pvpc: snapshot.data![index]);
               });
+          var secondList = ListView.builder(
+              itemCount: snapshot.data!.length,
+              itemBuilder: (context, index) {
+                if (index < 12) return Container();
+                return RowPVPC(
+                    isSelected: selectedHours.contains(index),
+                    pvpc: snapshot.data![index]);
+              });
+          return Row(
+            children: <Widget>[
+              Flexible(
+                child: Container(child: firstList),
+              ),
+              Flexible(
+                child: Container(child: secondList),
+              ),
+            ],
+          );
         } else if (snapshot.hasError) {
           return Text('${snapshot.error}');
         }
