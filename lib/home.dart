@@ -74,7 +74,7 @@ class _HomeState extends State<Home> {
               children: [
                 const Padding(
                     padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
-                    child: Text("Selecciona el numero de horas",
+                    child: Text("Arrastra para seleccionar el numero de horas necesarias:",
                         style: TextStyle(fontSize: 22))),
                 Slider(
                     activeColor: Colors.green,
