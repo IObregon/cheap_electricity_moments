@@ -1,8 +1,9 @@
 class PVPC {
   final String hour;
   final double PCB;
+  bool isCheapest = false;
 
-  const PVPC({
+  PVPC({
     required this.hour,
     required this.PCB,
   });

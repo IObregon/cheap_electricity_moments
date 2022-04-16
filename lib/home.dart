@@ -60,12 +60,21 @@ class _HomeState extends State<Home> {
     final response = await get(Uri.parse(
         'https://api.esios.ree.es/archives/70/download_json?locale=en&date=${formatter.format(pickedDate)}'));
     if (response.statusCode == 200) {
-      var pvpcs = jsonDecode(response.body)['PVPC'];
-      if (pvpcs == null) return List<PVPC>.from([]);
-      return List<PVPC>.from(pvpcs.map((e) => PVPC.fromJson(e)).toList());
+      var decodedPvpcs = jsonDecode(response.body)['PVPC'];
+      if (decodedPvpcs == null) return List<PVPC>.from([]);
+      var pvpcs = createListPVPCs(decodedPvpcs);
+      return pvpcs;
     } else {
       throw Exception('Something went wrong.');
     }
+  }
+
+  List<PVPC> createListPVPCs(decodedPvpcs) {
+    var list = List<PVPC>.from(decodedPvpcs.map((e) => PVPC.fromJson(e)));
+    var onlyPricesList = list.map((e) => e.PCB).toList();
+    var cheapestIndex = onlyPricesList.indexOf(onlyPricesList.reduce(min));
+    list[cheapestIndex].isCheapest = true;
+    return list;
   }
 
   @override
