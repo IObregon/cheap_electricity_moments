@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'dart:math';
 
+import 'package:cheap_electricity_moments/PVPC_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:intl/intl.dart';
@@ -15,14 +17,22 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  static const int maxHourNumber = 23;
   DateTime _selectedDate = DateTime.now();
   late Future<List<PVPC>> _futurePVPCs;
   double _hoursNumber = 0.0;
+  late int _remainingHours;
 
   @override
   void initState() {
     super.initState();
     _futurePVPCs = fetchPVPCs(_selectedDate);
+    _remainingHours = _calculateRemainingHours(DateTime.now(), DateTime.now());
+  }
+
+  int _calculateRemainingHours(DateTime currentDate, DateTime selectedDate) {
+    var currentHour = calculateCurrentHour(currentDate, selectedDate);
+    return currentHour > -1 ? min((maxHourNumber - currentHour), 20) : 0;
   }
 
   Future<DateTime?> _selectDate(BuildContext context) async {
@@ -35,8 +45,10 @@ class _HomeState extends State<Home> {
         helpText: "Seleccione  fecha");
     if (picked != null && picked != _selectedDate) {
       setState(() {
+        _hoursNumber = 0;
         _selectedDate = picked;
         _futurePVPCs = fetchPVPCs(picked);
+        _remainingHours = _calculateRemainingHours(DateTime.now(), picked);
       });
     }
     return picked;
@@ -74,14 +86,15 @@ class _HomeState extends State<Home> {
               children: [
                 const Padding(
                     padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
-                    child: Text("Arrastra para seleccionar el numero de horas necesarias:",
+                    child: Text(
+                        "Arrastra para seleccionar el numero de horas necesarias:",
                         style: TextStyle(fontSize: 22))),
                 Slider(
                     activeColor: Colors.green,
                     value: _hoursNumber,
                     min: 0.0,
-                    max: 20.0,
-                    divisions: 40,
+                    max: _remainingHours.toDouble(),
+                    divisions: _remainingHours * 2,
                     label: _hoursNumber.toStringAsFixed(1),
                     onChanged: (double value) {
                       setState(() {
@@ -97,6 +110,7 @@ class _HomeState extends State<Home> {
                   child: ListPVPCs(
                     futurePVPCs: _futurePVPCs,
                     hoursNumber: _hoursNumber,
+                    selectedDate: _selectedDate,
                   ),
                 )
               ],

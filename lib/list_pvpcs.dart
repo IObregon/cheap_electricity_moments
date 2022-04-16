@@ -6,9 +6,13 @@ import 'row_pvpc.dart';
 class ListPVPCs extends StatefulWidget {
   final Future<List<PVPC>> futurePVPCs;
   final double hoursNumber;
+  final DateTime selectedDate;
 
   const ListPVPCs(
-      {Key? key, required this.futurePVPCs, required this.hoursNumber})
+      {Key? key,
+      required this.futurePVPCs,
+      required this.hoursNumber,
+      required this.selectedDate})
       : super(key: key);
 
   @override
@@ -30,8 +34,10 @@ class _ListPVPCsState extends State<ListPVPCs> {
                     child: Text("No hay datos todavia.",
                         style: TextStyle(fontSize: 22))));
           }
-          var selectedHours =
-              calculateSelectedHours(snapshot.data, widget.hoursNumber);
+          var selectedHours = calculateSelectedHours(
+              snapshot.data,
+              widget.hoursNumber,
+              calculateCurrentHour(DateTime.now(), widget.selectedDate));
           var firstList = ListView.builder(
               itemCount: (snapshot.data!.length / 2).ceil(),
               itemBuilder: (context, index) {
