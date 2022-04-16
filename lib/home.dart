@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:cheap_electricity_moments/PVPC_utils.dart';
+import 'package:cheap_electricity_moments/slider_label.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:intl/intl.dart';
@@ -84,11 +85,7 @@ class _HomeState extends State<Home> {
             padding: const EdgeInsets.all(10.0),
             child: Column(
               children: [
-                const Padding(
-                    padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
-                    child: Text(
-                        "Arrastra para seleccionar el numero de horas necesarias:",
-                        style: TextStyle(fontSize: 22))),
+                const SliderLabel(),
                 Slider(
                     activeColor: Colors.green,
                     value: _hoursNumber,
