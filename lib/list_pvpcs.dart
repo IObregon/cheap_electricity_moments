@@ -31,7 +31,7 @@ class _ListPVPCsState extends State<ListPVPCs> {
             return const Center(
                 child: Padding(
                     padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
-                    child: Text("No hay datos todavia.",
+                    child: Text("No hay datos todavía.",
                         style: TextStyle(fontSize: 22))));
           }
           var selectedHours = calculateSelectedHours(
