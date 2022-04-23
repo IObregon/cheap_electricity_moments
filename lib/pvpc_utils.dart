@@ -34,7 +34,7 @@ double calculateSum(int i, double hoursNumber, List<PVPC> data) {
   return data
       .skip(i)
       .take(hoursNumber.ceil())
-      .fold<double>(0.0, (value, element) => element.PCB + value);
+      .fold<double>(0.0, (value, element) => element.pcb + value);
 }
 
 int calculateCurrentHour(DateTime currentDate, DateTime selectedDate) {

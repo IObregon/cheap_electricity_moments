@@ -26,7 +26,7 @@ class RowPVPC extends StatelessWidget {
           TextSpan(children: [
             cheapestIcon,
             TextSpan(
-                text: "${pvpc.hour} => ${pvpc.PCB.toStringAsFixed(5)} €/kWh")
+                text: "${pvpc.hour} => ${pvpc.pcb.toStringAsFixed(5)} €/kWh")
           ]),
         )));
   }

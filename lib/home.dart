@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 
-import 'package:cheap_electricity_moments/PVPC_utils.dart';
+import 'package:cheap_electricity_moments/pvpc_utils.dart';
 import 'package:cheap_electricity_moments/slider_label.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
@@ -43,7 +43,7 @@ class _HomeState extends State<Home> {
         firstDate: DateTime(2022),
         lastDate: DateTime.now().add(const Duration(days: 1)),
         locale: const Locale('es'),
-        helpText: "Seleccione  fecha");
+        helpText: "Selecciona fecha");
     if (picked != null && picked != _selectedDate) {
       setState(() {
         _hoursNumber = 0;
@@ -71,7 +71,7 @@ class _HomeState extends State<Home> {
 
   List<PVPC> createListPVPCs(decodedPvpcs) {
     var list = List<PVPC>.from(decodedPvpcs.map((e) => PVPC.fromJson(e)));
-    var onlyPricesList = list.map((e) => e.PCB).toList();
+    var onlyPricesList = list.map((e) => e.pcb).toList();
     var cheapestIndex = onlyPricesList.indexOf(onlyPricesList.reduce(min));
     list[cheapestIndex].isCheapest = true;
     return list;

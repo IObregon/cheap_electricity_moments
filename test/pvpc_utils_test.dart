@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:cheap_electricity_moments/pvpc.dart';
-import 'package:cheap_electricity_moments/PVPC_utils.dart';
+import 'package:cheap_electricity_moments/pvpc_utils.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'pvpc_json.dart';
