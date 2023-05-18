@@ -37353,7 +37353,7 @@ while(true)switch(s){case 0:n=p.d
 m=A.bf(2022,1,1,0,0,0,0,!1)
 if(!A.aY(m))A.H(A.b_(m))
 s=3
-return A.ak(A.aiM(a,new A.ap(m,!1),"Selecciona fecha",n,new A.ap(Date.now(),!1).F(0,B.H1),B.uJ),$async$rN)
+return A.ak(A.aiM(a,new A.ap(m,!1),"Seleccione fecha",n,new A.ap(Date.now(),!1).F(0,B.H1),B.uJ),$async$rN)
 case 3:o=c
 if(o!=null&&!o.k(0,p.d))p.aE(new A.aaJ(p,o))
 q=o
@@ -37365,7 +37365,7 @@ pk(a){return this.a78(a)},
 a78(a){var s=0,r=A.ae(t.lc),q,p=this,o,n
 var $async$pk=A.af(function(b,c){if(b===1)return A.ab(c,r)
 while(true)switch(s){case 0:s=3
-return A.ak(A.aCO(A.yt("https://api.esios.ree.es/archives/70/download_json?locale=en&date="+A.Wd("yyyy/MM/dd",null).fu(0,a))),$async$pk)
+return A.ak(A.aCO(A.yt("https://api.esios.ree.es/archives/70/download_json?locale=es&fecha="+A.Wd("yyyy/MM/dd",null).fu(0,a))),$async$pk)
 case 3:n=c
 if(n.b===200){o=J.aC(B.bp.JO(0,A.aCC(A.aAQ(n.e).c.a.h(0,"charset")).dP(0,n.x),null),"PVPC")
 if(o==null){q=A.ef([],!0,t.yr)
