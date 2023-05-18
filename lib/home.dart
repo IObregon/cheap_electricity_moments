@@ -43,7 +43,7 @@ class _HomeState extends State<Home> {
         firstDate: DateTime(2022),
         lastDate: DateTime.now().add(const Duration(days: 1)),
         locale: const Locale('es'),
-        helpText: "Selecciona fecha");
+        helpText: "Seleccione fecha");
     if (picked != null && picked != _selectedDate) {
       setState(() {
         _hoursNumber = 0;
@@ -58,7 +58,7 @@ class _HomeState extends State<Home> {
   Future<List<PVPC>> fetchPVPCs(DateTime pickedDate) async {
     final formatter = DateFormat('yyyy/MM/dd');
     final response = await get(Uri.parse(
-        'https://api.esios.ree.es/archives/70/download_json?locale=en&date=${formatter.format(pickedDate)}'));
+        'https://api.esios.ree.es/archives/70/download_json?locale=es&fecha=${formatter.format(pickedDate)}'));
     if (response.statusCode == 200) {
       var decodedPvpcs = jsonDecode(response.body)['PVPC'];
       if (decodedPvpcs == null) return List<PVPC>.from([]);
